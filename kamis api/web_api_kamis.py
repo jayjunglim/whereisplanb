@@ -105,7 +105,10 @@ def kamis_api_3(yyyy = '2022',period ='3',itemcode ='111',kindcode ='01',gradera
             row_dict[j.tag].append(j.text)
 
     df = pd.DataFrame(row_dict)
+    # caption 컬럼 > 기준으로 분리: 캡션1~캡션5
+    df = pd.DataFrame(row_dict)
+    df[['캡션1','캡션2','캡션3','캡션4','캡션5','캡션6']] = df['caption'].str.split(' > ', n=6,expand=True)
+    df.drop('caption', axis=1, inplace=True)
 
-    df.columns =  ['구분','caption 정보','연도','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','연평균']
-    #caption 정보: 도매가격 ; 식량작물 ; 쌀 ; 일반계(중품) ; 20kg
+    df.columns =  ['구분','연도','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','연평균','캡션1','캡션2','캡션3','캡션4','캡션5','캡션6']
     return df
