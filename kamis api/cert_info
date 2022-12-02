@@ -1,0 +1,6 @@
+# 개인키와 이메일은 비공개
+def cert_key():
+    return ''
+
+def cert_id():
+    return ''
