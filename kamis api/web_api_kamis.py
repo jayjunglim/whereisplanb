@@ -32,11 +32,36 @@ def kamis_api_1(cls_code ='02', category_detail_code ='224', country_code ='',re
             row_dict[j.tag].append(j.text)
 
     df = pd.DataFrame(row_dict)
+    
     df.columns =  ['품목명','품목코드','품종명','품종코드','상태(상품, 중품)','상태코드',
     '단위','일자(조회일자)','조회일자 가격','1일전 일자(조회일자 기준)','1일전 가격','1주일전 일자(조회일자 기준)'
     ,'1주일전 가격','2주일전 일자(조회일자 기준)','2주일전 가격','1개월전 일자(조회일자 기준)','1개월전 가격','1년전 일자(조회일자 기준)','1년전 가격','평년일자','평년 가격']
-
-    return df[df['품목코드']==category_detail_code]
+    
+    #조회일자 기준 데이터가 없으면 함수 종료
+    if df.empty:
+        return df
+    else:
+        #Seires의 데이터타입 object -> string
+        df = df.convert_dtypes()
+        # 가격부분의 '-'를 NaN으로 변경
+        df['조회일자 가격'] = df['조회일자 가격'].replace('-',np.NaN)
+        df['1일전 가격'] = df['1일전 가격'].replace('-',np.NaN)
+        df['1주일전 가격'] = df['1주일전 가격'].replace('-',np.NaN)
+        df['2주일전 가격'] = df['2주일전 가격'].replace('-',np.NaN)
+        df['1개월전 가격'] = df['1개월전 가격'].replace('-',np.NaN)
+        df['1년전 가격'] = df['1년전 가격'].replace('-',np.NaN)
+        df['평년 가격'] = df['평년 가격'].replace('-',np.NaN)
+    
+        # 가격의 , 부분을 바꾸고 numeric으로 변경
+        df['조회일자 가격'] = df['조회일자 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['1일전 가격'] = df['1일전 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['1주일전 가격'] = df['1주일전 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['2주일전 가격'] = df['2주일전 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['1개월전 가격'] = df['1개월전 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['1년전 가격'] = df['1년전 가격'].str.replace(',','').apply(pd.to_numeric)
+        df['평년 가격'] = df['평년 가격'].str.replace(',','').apply(pd.to_numeric)
+        
+        return df[df['품목코드']==category_detail_code] 
 
 
 #https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2
