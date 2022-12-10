@@ -65,6 +65,8 @@ def kamis_api_1(cls_code ='02', category_detail_code ='224', country_code ='',re
 
 
 #https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2
+#데이터 함수 만드는 것
+#2번 코드가 일반 적임.
 def kamis_api_2(startday='2022-01-01',endday ='2022-12-01',productclscode = '02',itemcategorycode ='',
 itemcode ='',kindcode = '', productrankcode='',countrycode=''):
     url = 'http://www.kamis.or.kr/service/price/xml.do?action=periodProductList'
@@ -86,6 +88,8 @@ itemcode ='',kindcode = '', productrankcode='',countrycode=''):
     ('p_convert_kg_yn','')
     }
     response = requests.get(url,params)
+    print(response.text)
+    #여기까지만 출력해도 충분
     root = ET.fromstring(response.text)
     row_dict = {'itemname':[],'kindname':[],'countyname':[],'marketname':[],'yyyy':[],'regday':[],
     'price':[]}
