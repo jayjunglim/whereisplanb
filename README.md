@@ -3,6 +3,15 @@
 농산물 유통정보 API를 통하여 장바구니 물가를 확인하는 대시보드 입니다. 
 (https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=3)
 
+# 구조
+
+1. airflow에 2번 정제 프로그램 탑재 및 주기적 실행(미구현)
+2. kamis에서 데이터 정제(web_api_kamis) 
+3. google drive에 데이터 업로드(미구현)[(참고 link)](https://ysyblog.tistory.com/296)
+4. goole drive에 있는 데이터 Google data Studio에 연결(미구현)
+5. 리포트 배포(ex. e-mail, slack, 웹 등) (미구현)
+
+
 ## 파일 설명
 - cert_info: API 인증키와 아이디 정보, 개인정보 보호를 위해 공란처리
 - test.py: 파일을 실행하는 스크립트
