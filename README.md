@@ -14,7 +14,7 @@
 - kamis api는 총 14개로 이루어져있음. 현재 각 API에 대한 함수를 따로 만들어 순차적으로 1번~14번으로 명칭
 - 현재는 1번 API 만 정제해 놓은 상태고 이후 공통된 정제 함수를 도입해야할 듯
 
-kamis_api_1는 1번 `	일별 부류별 도.소매가격정보`의 API를 호출하는 기능으로 필요한 정보(ex. key, id, return type 등)을 입력하면 정보를 리턴해줌.
+kamis_api_1는 1번 `일별 부류별 도.소매가격정보`의 API를 호출하는 기능으로 필요한 정보(ex. key, id, return type 등)을 입력하면 정보를 리턴해줌.
 이때 데이터는 xml으로 전달되기 떄문에 다음과 같은 정제 작업이 필요함(추가 될 수 있음)
 1. iteration을 이용하여 Dataframe 으로 정제
 2. 모든 date type을 object -> string 변환
