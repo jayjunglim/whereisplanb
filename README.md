@@ -3,7 +3,8 @@
 농산물 유통정보 API를 통하여 장바구니 물가를 확인하는 대시보드 입니다. 
 (https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=3)
 
-# 구조
+# 구조설계
+*현재 2번만 구현 됨
 
 1. airflow에 2번 정제 프로그램 탑재 및 주기적 실행(미구현)
 2. kamis에서 데이터 정제(web_api_kamis) 
