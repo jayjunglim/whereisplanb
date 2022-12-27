@@ -2,6 +2,7 @@
 
 농산물 유통정보 API를 통하여 장바구니 물가를 확인하는 대시보드 입니다. 
 (https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=3)
+아이디어 개요: https://blog.naver.com/bellepoque7/222944303592
 
 # 구조설계
 *현재 2번만 구현 됨
