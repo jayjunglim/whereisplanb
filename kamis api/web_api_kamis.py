@@ -141,3 +141,51 @@ def kamis_api_3(yyyy = '2022',period ='3',itemcode ='111',kindcode ='01',gradera
 
     df.columns =  ['구분','연도','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','연평균','캡션1','캡션2','캡션3','캡션4','캡션5','캡션6']
     return df
+
+# 연도별 도소매가격정보
+# 요청URL: http://www.kamis.or.kr/service/price/xml.do?action=yearlySalesList
+def kamis_api_4(yyyy = '2015', itemcategorycode = '100', itemcode = '111', kindcode = '01', graderank = '1', countycode = '1101', convert_kg_yn = 'N'):
+    url = 'http://www.kamis.or.kr/service/price/xml.do?action=yearlySalesList'
+    params = {
+        ('p_cert_key', cert_info.cert_key()), #인증Key
+        ('p_cert_id', cert_info.cert_id()),   #요청자id
+        ('p_returntype', 'xml'), #Return Type (json:Json 데이터 형식, xml:XML데이터형식)
+        ('p_yyyy', yyyy), #연도 설정
+        ('p_itemcategorycode', itemcategorycode), #부류코드
+        ('p_itemcode', itemcode), #품목코드
+        ('p_kindcode', kindcode), #품종코드s
+        ('p_graderank', graderank), #등급(상품,중품)
+        ('p_countycode', countycode), #시군구
+        ('p_convert_kg_yn', convert_kg_yn), #Kg단위 환산여부 
+        }
+    response = requests.get(url, params)
+
+    root = ET.fromstring(response.text)
+
+    row_dict = {
+        'productclscode':[],
+        'caption':[],
+        'div':[],
+        'avg_data':[],
+        'max_data':[],
+        'min_data':[],
+        'stddev_data':[],
+        'cv_data':[],
+        'af_data':[]
+    }
+
+    for i in root.findall("price"):
+        cnt = 0
+        for j in i.findall("item"):
+            cnt = cnt + 1
+            for t in j:
+                row_dict[t.tag].append(t.text)
+        for j in range(1,cnt+1):
+            row_dict['productclscode'].append(i.find("productclscode").text)
+            row_dict['caption'].append(i.find("caption").text)
+
+    df = pd.DataFrame(row_dict)
+    df.columns =  ['부류코드','품목명','구분(연도)','평균','최대','최소','표준편차','변동계수','진폭계수']
+    # print(df)
+
+    return df
