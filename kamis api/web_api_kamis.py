@@ -144,7 +144,7 @@ def kamis_api_3(yyyy = '2022',period ='3',itemcode ='111',kindcode ='01',gradera
 
 # 연도별 도소매가격정보
 # 요청URL: http://www.kamis.or.kr/service/price/xml.do?action=yearlySalesList
-def kamis_api_4(yyyy = '2021', itemcategorycode = '200', itemcode = '213', kindcode = '00'):
+def kamis_api_4(yyyy = '2021', itemcategorycode = '200', itemcode = '213', kindcode = '00', graderank = '1', countycode = '1101', covert_kg_yn = 'N'):
     url = 'http://www.kamis.or.kr/service/price/xml.do?action=yearlySalesList'
     params = {
         ('p_cert_key', cert_info.cert_key()), #인증Key
