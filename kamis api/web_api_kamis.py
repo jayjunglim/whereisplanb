@@ -189,5 +189,3 @@ def kamis_api_4(yyyy = '2015', itemcategorycode = '100', itemcode = '111', kindc
     # print(df)
 
     return df
- 
- #이주연일함
