@@ -43,20 +43,16 @@ def kamis_api_5(startday = '2015-10-07', endday = '2015-11-26', itemcategorycode
         'marketname_first_yn':[]
     }
 
-### 230110 - 여기까지 작업 완료
+    dt = root.find('data')
 
-    for i in root.findall("condition"):
-        cnt = 0
-        for j in i.findall("item"):
-            cnt = cnt + 1
-            for t in j:
-                row_dict[t.tag].append(t.text)
-        for j in range(1,cnt+1):
-            row_dict['productclscode'].append(i.find("productclscode").text)
-            row_dict['caption'].append(i.find("caption").text)
+    for i in dt.findall('item'):
+        for j in i:
+            row_dict[j.tag].append(j.text)
 
     df = pd.DataFrame(row_dict)
-    df.columns =  ['부류코드','품목명','구분(연도)','평균','최대','최소','표준편차','변동계수','진폭계수']
+    df.columns = ['일련번호','시군구','시군구','마켓명','단위','일자','가격','그룹첫번째여부','그룹마지막여부','시군구셀병합갯수(열)','시군구첫번째여부','마켓셀병합갯수(열)','마켓첫번째여부']
     # print(df)
 
     return df
+
+kamis_api_5()
