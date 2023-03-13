@@ -88,7 +88,7 @@ itemcode ='',kindcode = '', productrankcode='',countrycode=''):
     ('p_convert_kg_yn','')
     }
     response = requests.get(url,params)
-    print(response.text)
+    # print(response.text)
     #여기까지만 출력해도 충분
     root = ET.fromstring(response.text)
     row_dict = {'itemname':[],'kindname':[],'countyname':[],'marketname':[],'yyyy':[],'regday':[],
@@ -189,3 +189,32 @@ def kamis_api_4(yyyy = '2015', itemcategorycode = '100', itemcode = '111', kindc
     # print(df)
 
     return df
+
+# 현재 기준 3년의 리스트만들기 ['2020-03-01', '2020-04-01' ..... '2023-03-01']
+def get_n_year_list(n):
+    from datetime import datetime
+    cur_year = str(datetime.now().year)
+    cur_month = str(datetime.now().month)
+    
+    my_period = []
+    my_month = []
+    print(my_month)
+    for i in range(n*13):
+        yyyy_mm_dd = cur_year + '-' + cur_month.zfill(2)+ '-' + '02'
+        my_period.append(yyyy_mm_dd)
+        if cur_month != '01':
+            cur_month = str(int(cur_month) -1).zfill(2)   #\fill 정해진 숫자길이만큼 0으로 채우기
+        else:
+            cur_month = '12'
+            cur_year = str(int(cur_year) -1)
+    my_period.sort()
+    return my_period
+
+
+#DataFrame에서 가격값에 해당하는 Seires 값을 , 제거하고 integer 형태로 바꾸는 메소드 구현
+def price_str_int():
+    pass
+
+# x,y 데이터를 넣으면 이쁘게 그려주는 plt 구현
+def get_graph():
+    pass
