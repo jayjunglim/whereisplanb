@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
 import cert_info
+import datetime
+
 
 #https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=1
 def kamis_api_1(cls_code ='02', category_detail_code ='224', country_code ='',regday='2022-12-01',convert_kg_yn ='N'):
@@ -210,6 +212,17 @@ def get_n_year_list(n):
     my_period.sort()
     return my_period
 
+# 숫자를 넣으면 2023-03-14 형식으로 날짜를 만들어주는 함수
+def get_date(n):
+    '''
+    함수설명 check
+    '''
+    my_days = []
+    for i in range(n*365):
+        cur_date = datetime.datetime.today() - datetime.timedelta(days=i)
+        my_days.append(cur_date.strftime('%Y-%m-%d'))
+    my_days.sort()
+    return my_days
 
 #DataFrame에서 가격값에 해당하는 Seires 값을 , 제거하고 integer 형태로 바꾸는 메소드 구현
 def price_str_int():
