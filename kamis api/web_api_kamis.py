@@ -4,7 +4,7 @@ import numpy as np
 import xml.etree.ElementTree as ET
 import cert_info
 import datetime
-
+import matplotlib.pyplot as plt
 
 #https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=1
 def kamis_api_1(cls_code ='02', category_detail_code ='224', country_code ='',regday='2022-12-01',convert_kg_yn ='N'):
@@ -224,10 +224,15 @@ def get_date(n):
     my_days.sort()
     return my_days
 
-#DataFrame에서 가격값에 해당하는 Seires 값을 , 제거하고 integer 형태로 바꾸는 메소드 구현
-def price_str_int():
-    pass
 
 # x,y 데이터를 넣으면 이쁘게 그려주는 plt 구현
-def get_graph():
-    pass
+def get_graph(x= [1,2,3,4], y = [2,4,6,8]):
+    plt.figure(figsize=(20,10))
+    plt.plot(x,y)
+    plt.ylim([0,max(y)])
+    plt.xlim([min(x),max(x)])
+    plt.xlabel('date')
+    plt.ylabel('price/100g')
+    plt.legend()
+    plt.xticks(rotation=90)
+    return plt.show
