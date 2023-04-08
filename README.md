@@ -14,8 +14,8 @@
 - cert_info: API 인증키와 아이디 정보, 개인정보 보호를 위해 공란처리
 - web_api_kamis.py: open ai를 불러오는 함수
  - Data
-  - category_detail_code.csv: 상품별 코드맵핑
-  - 상품명_날짜: 해당 날짜 기준 데이터 크롤링
+   - category_detail_code.csv: 상품별 코드맵핑
+   - {상품명}_{날짜}: 해당 날짜 기준 데이터 크롤링
 
 ### we_api_kamis.py 함수의 구조
 
