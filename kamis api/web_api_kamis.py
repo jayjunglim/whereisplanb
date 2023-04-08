@@ -22,6 +22,7 @@ def kamis_api_check(cls_code ='02', category_detail_code ='224', country_code ='
     ('p_regday',regday), # 날짜 : yyyy-mm-dd (default : 최근 조사일자)
     ('p_convert_kg_yn',convert_kg_yn), #kg단위 환산여부(Y : 1kg 단위표시, N : 정보조사 단위표시, ex: 쌀 20kg)default : N
     }
+    # DisconnectError 방지를 위한 헤더추가
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
     response = requests.get(url,params,headers = headers)
     print(response)
