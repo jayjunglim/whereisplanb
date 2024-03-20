@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 import concurrent.futures # 병렬처리 모듈
 
 def kamis_api_check(cls_code ='02', category_detail_code ='224', country_code ='',regday='2022-12-01',convert_kg_yn ='N'):
+    '''
+    API 1번("일별 부류별 도.소매가격정보")의 응답 상황을 확인하기 위한 함수입니다.
+    '''
     url = 'http://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList'
     params = {
     ('p_cert_key',cert_info.cert_key()), #인증Key
@@ -29,6 +32,9 @@ def kamis_api_check(cls_code ='02', category_detail_code ='224', country_code ='
 
 #https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=1
 def kamis_api_1(cls_code ='02', category_detail_code ='224', country_code ='',regday='2022-12-01',convert_kg_yn ='N'):
+    '''
+    API 1번("일별 부류별 도.소매가격정보")의 정보를 전처리해서 저장하는 함수입니다.
+    '''
     url = 'http://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList'
     params = {
     ('p_cert_key',cert_info.cert_key()), #인증Key
@@ -257,24 +263,6 @@ def get_graph(x= [1,2,3,4], y = [2,4,6,8]):
     plt.legend()
     plt.xticks(rotation=90)
     return plt.show
-
-from typing import List
-def kamis_api_check(cls_code ='02', category_detail_code ='224', country_code ='',regday='2022-12-01',convert_kg_yn ='N'):
-    url = 'http://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList'
-    params = {
-    ('p_cert_key',cert_info.cert_key()), #인증Key
-    ('p_cert_id',cert_info.cert_id()),   #요청자id
-    ('p_returntype','xml'), #Return Type (json:Json 데이터 형식, xml:XML데이터형식)
-    ('p_product_cls_code',cls_code), #구분 ( 01:소매, 02:도매, default:02 )
-    ('p_item_category_code', category_detail_code[0]+'00'), # 부류코드(100:식량작물, 200:채소류, 300:특용작물, 400:과일류, 500:축산물, 600:수산물, default:100)
-    ('p_country_code',country_code), 
-    #* 소매가격 선택가능 지역 (1101:서울, 2100:부산, 2200:대구, 2300:인천, 2401:광주, 2501:대전, 2601:울산, 3111:수원, 3211:춘천, 3311:청주, 3511:전주, 
-    # 3711:포항, 3911:제주, 3113:의정부, 3613:순천, 3714:안동, 3814:창원, 3145:용인)
-    #도매가격 선택가능 지역 (1101:서울, 2100:부산, 2200:대구, 2401:광주, 2501:대전)default : 전체지역
-    ('p_regday',regday), # 날짜 : yyyy-mm-dd (default : 최근 조사일자)
-    ('p_convert_kg_yn',convert_kg_yn), #kg단위 환산여부(Y : 1kg 단위표시, N : 정보조사 단위표시, ex: 쌀 20kg)default : N
-    }
-    response = requests.get(url,params)
 
 def process_api_requests(params_list: List[dict]) -> List[pd.DataFrame]:
     '''API 요청 처리를 병렬로 수행하고 결과를 데이터프레임으로 변환'''
