@@ -129,6 +129,7 @@ itemcode ='',kindcode = '', productrankcode='',countrycode=''):
             row_dict[j.tag].append(j.text)
 
     df = pd.DataFrame(row_dict)
+    df.assign(price = lambda x :int(x.replace(',','')))
     df.columns =  ['품목명','품종명','시군구','마켓명','연도','날짜','가격']
 
     return df
@@ -219,15 +220,13 @@ def kamis_api_4(yyyy = '2015', itemcategorycode = '100', itemcode = '111', kindc
 
     return df
 
-# 현재 기준 3년의 리스트만들기 ['2020-03-01', '2020-04-01' ..... '2023-03-01']
 def get_n_year_list(n):
+    '''년도를 넣으면 현재일 기준 YYYY-MM-DD 형식으로 매월날짜를 만들어주는 함수'''
     from datetime import datetime
     cur_year = str(datetime.now().year)
     cur_month = str(datetime.now().month)
     
     my_period = []
-    my_month = []
-    print(my_month)
     for i in range(n*13):
         yyyy_mm_dd = cur_year + '-' + cur_month.zfill(2)+ '-' + '02'
         my_period.append(yyyy_mm_dd)
@@ -236,20 +235,15 @@ def get_n_year_list(n):
         else:
             cur_month = '12'
             cur_year = str(int(cur_year) -1)
-    my_period.sort()
-    return my_period
+    return my_period.sort()
 
-# 숫자를 넣으면 2023-03-14 형식으로 날짜를 만들어주는 함수
 def get_date(n):
-    '''
-    함수설명 check
-    '''
+    '''년도를 넣으면 현재일 기준 YYYY-MM-DD 형식으로 모든날짜를 만들어주는 함수'''
     my_days = []
     for i in range(n*365):
         cur_date = datetime.datetime.today() - datetime.timedelta(days=i)
         my_days.append(cur_date.strftime('%Y-%m-%d'))
-    my_days.sort()
-    return my_days
+    return my_days..sort()
 
 
 # x,y 데이터를 넣으면 이쁘게 그려주는 plt 구현
@@ -265,6 +259,7 @@ def get_graph(x= [1,2,3,4], y = [2,4,6,8]):
     return plt.show
 
 def process_api_requests(params_list):
+    '''미완성'''
     '''API 요청 처리를 병렬로 수행하고 결과를 데이터프레임으로 변환'''
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         # 각 API 요청을 병렬로 처리하고 응답을 저장
