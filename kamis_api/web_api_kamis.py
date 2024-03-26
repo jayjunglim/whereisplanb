@@ -264,7 +264,7 @@ def get_graph(x= [1,2,3,4], y = [2,4,6,8]):
     plt.xticks(rotation=90)
     return plt.show
 
-def process_api_requests(params_list: List[dict]) -> List[pd.DataFrame]:
+def process_api_requests(params_list):
     '''API 요청 처리를 병렬로 수행하고 결과를 데이터프레임으로 변환'''
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         # 각 API 요청을 병렬로 처리하고 응답을 저장
