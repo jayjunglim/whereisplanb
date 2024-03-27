@@ -129,7 +129,6 @@ itemcode ='',kindcode = '', productrankcode='',countrycode=''):
             row_dict[j.tag].append(j.text)
 
     df = pd.DataFrame(row_dict)
-    df.assign(price = lambda x :int(x.replace(',','')))
     df.columns =  ['품목명','품종명','시군구','마켓명','연도','날짜','가격']
 
     return df
@@ -243,7 +242,7 @@ def get_date(n):
     for i in range(n*365):
         cur_date = datetime.datetime.today() - datetime.timedelta(days=i)
         my_days.append(cur_date.strftime('%Y-%m-%d'))
-    return my_days..sort()
+    return my_days.sort()
 
 
 # x,y 데이터를 넣으면 이쁘게 그려주는 plt 구현
