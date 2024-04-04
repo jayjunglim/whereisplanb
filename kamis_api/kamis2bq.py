@@ -24,6 +24,19 @@ table_id = 'str'
 full_dataset_id = "{}.{}".format(client.project, dataset_id)
 print('2/4 빅쿼리 연결 설정 완료')
 
+#스키마 설정(빅쿼리에 올라갈 데이터 형태)
+schema = [
+    bigquery.SchemaField("품목명", "STRING"),
+    bigquery.SchemaField("품종명", "STRING", mode="NULLABLE"),  # NULL 값을 허용
+    bigquery.SchemaField("시군구", "STRING"),
+    bigquery.SchemaField("마켓명", "STRING", mode="NULLABLE"),  # NULL 값을 허용
+    bigquery.SchemaField("연도", "STRING"),  # 연도가 숫자로만 구성되어 있더라도, 여기서는 문자열로 처리
+    bigquery.SchemaField("날짜", "DATE"),  # 날짜를 문자열로 처리할 수 있지만, DATE 타입을 사용하는 것이 더 적합할 수 있음
+    bigquery.SchemaField("가격", "FLOAT64"),  #     
+    bigquery.SchemaField("date", "DATE"),  # datetime64[ns] 타입은 BigQuery의 DATE 타입으로 매핑
+    bigquery.SchemaField("price_100g", "FLOAT64"),  # float64 타입은 BigQuery의 FLOAT64 타입으로 매핑
+]
+job_config = bigquery.LoadJobConfig(schema=schema) 
 
 dataset_ref = client.dataset(dataset_id)
 # 데이터셋이 없을 경우, 데이터셋 생성
@@ -47,7 +60,7 @@ try:
 except NotFound:
     print("{} 테이블이 없어 생성필요".format(table_id))
 
-job = client.load_table_from_dataframe(df_str, table_ref)
+job = client.load_table_from_dataframe(df_str, table_ref, job_config=job_config)
 job.result()
 end = time.time()
 print("4/4 작업완료, {}초 소요".format(end-start))
