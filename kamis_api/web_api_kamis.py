@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import numpy as np
 import xml.etree.ElementTree as ET
-import cert_info
+from whereisplanb.kamis_api import cert_info
 import datetime
 import matplotlib.pyplot as plt
 import concurrent.futures # 병렬처리 모듈
