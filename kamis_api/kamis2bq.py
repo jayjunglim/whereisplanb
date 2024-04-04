@@ -60,7 +60,7 @@ try:
 except NotFound:
     print("{} 테이블이 없어 생성필요".format(table_id))
 
-job = client.load_table_from_dataframe(df_str, table_ref, job_config=job_config)
+job = client.load_table_from_dataframe(df_str, table_ref)
 job.result()
 end = time.time()
 print("4/4 작업완료, {}초 소요".format(round(end-start)))
