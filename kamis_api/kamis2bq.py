@@ -1,3 +1,5 @@
+#GCP debain 환경에서 실행되는 코드
+
 import pandas as pd
 from web_api_kamis import *
 from google.cloud import bigquery
