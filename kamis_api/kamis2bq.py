@@ -32,7 +32,7 @@ schema = [
     bigquery.SchemaField("마켓명", "STRING", mode="NULLABLE"),  # NULL 값을 허용
     bigquery.SchemaField("연도", "STRING"),  # 연도가 숫자로만 구성되어 있더라도, 여기서는 문자열로 처리
     bigquery.SchemaField("날짜", "STRING"),  # 날짜를 문자열로 처리할 수 있지만, DATE 타입을 사용하는 것이 더 적합할 수 있음
-    bigquery.SchemaField("가격", "FLOAT64"),       
+    bigquery.SchemaField("가격", "STRING"),       
     bigquery.SchemaField("date", "DATE"),  # datetime64[ns] 타입은 BigQuery의 DATE 타입으로 매핑
     bigquery.SchemaField("price_100g", "FLOAT64"),  # float64 타입은 BigQuery의 FLOAT64 타입으로 매핑
 ]
