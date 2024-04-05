@@ -13,7 +13,7 @@ df_str = kamis_api_2(itemcode ='226')
 df_str = df_str.assign(date = lambda x : df_str['연도'] + '/' + df_str['날짜'])
 df_str['date'] = pd.to_datetime(df_str['date'], format = 'ISO8601')
 df_str = df_str.assign(price_100g = lambda x: x['가격'].str.replace(',','').str.replace('-','0').astype('int')/20)
-
+df_str.columns = ['itemcode','kindcode','countrycode','market','year','origin_date','tot_price','date','price_100g']
 print('1/4 데이터 전처리 완료')
 
 #빅쿼리 연결 설정
